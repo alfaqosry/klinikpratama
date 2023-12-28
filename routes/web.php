@@ -44,6 +44,12 @@ Route::get('profile/{username}', [UserController::class, 'profile'])->name('prof
 Route::post('/profile/update/{id}', [UserController::class, 'profileupdate'])->name('profile.update');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::group(['middleware' => ['auth', 'role:Pasien']], function () {
+
+
+    Route::get('/home/treatment/{id}', [HomeController::class, 'treatment'])->name('home.treatment');
+    Route::post('/home/pesan/store', [HomeController::class, 'store'])->name('pesan.store');
+});
 
 
 

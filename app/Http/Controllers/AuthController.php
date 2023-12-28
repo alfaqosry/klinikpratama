@@ -30,11 +30,9 @@ class AuthController extends Controller
             $checkRole = Auth::user()->role;
             // dd($checkRole);
             if ($checkRole == 'Admin') {
+                return redirect()->route('layanan.index');
+            } elseif ($checkRole == 'Pasien') {
                 return redirect()->route('home');
-            } elseif ($checkRole == 'Petugas') {
-                return redirect()->route('dashboard');
-            } elseif ($checkRole == 'Penjual') {
-                return redirect()->route('home.index');
             }
         }
 
@@ -94,7 +92,7 @@ class AuthController extends Controller
             'jkelamin' => $request->pekerjaan,
             'tgl_lahir' => $request->tgl_lahir,
             'password' => Hash::make($request->input('password')),
-            'role' => "Admin",
+            'role' => "Pasien",
             'no_hp' => $request->no_hp
         ]);
 
