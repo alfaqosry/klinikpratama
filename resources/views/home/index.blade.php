@@ -25,7 +25,7 @@
                                 yang tidak mendapatkan hal layanan kesehatan.
                             </p>
 
-                            <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+                            <a href="javascript:;" class="btn btn-sm btn-outline-primary">Lihat Kontak</a>
                         </div>
                     </div>
                     <div class="col-sm-5 text-center text-sm-left">
