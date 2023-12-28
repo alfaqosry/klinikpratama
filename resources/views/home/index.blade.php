@@ -19,7 +19,7 @@
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-7">
                         <div class="card-body">
-                            <h5 class="card-title text-primary">Congratulations John! 🎉</h5>
+                            <h5 class="card-title text-primary">Prakter dr.Dini Zulanda</h5>
                             <p class="mb-4">
                                 Kami melayani pengobatan umum gratis bagi dhuafa & lansia dan untuk warga yang kurang mampu
                                 yang tidak mendapatkan hal layanan kesehatan.
