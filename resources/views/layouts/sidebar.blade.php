@@ -76,6 +76,13 @@
                 <div data-i18n="Basic">Layanan</div>
             </a>
         </li>
+        <li class="menu-item @yield('user')">
+            <a href="{{ route('user') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Basic">User</div>
+            </a>
+        </li>
+
 
 
 

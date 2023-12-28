@@ -119,11 +119,14 @@ class UserController extends Controller
     public function profileupdate(Request $request, string $id)
     {
 
+
         $user = User::find($id);
-        $user->nama = $request->nama;
-        $user->no_tlpn = $request->no_tlpn;
+        $user->name = $request->name;
+        $user->no_hp = $request->no_hp;
         $user->email = $request->email;
         $user->alamat = $request->alamat;
+        $user->tgl_lahir = $request->tgl_lahir;
+        $user->pekerjaan = $request->pekerjaan;
         if ($request->foto) {
             $user['foto'] = $request->file('foto')->store('foto', 'public');
         }
