@@ -141,15 +141,6 @@
                         </a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">
-                          <span class="d-flex align-items-center align-middle">
-                            <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                            <span class="flex-grow-1 align-middle">Billing</span>
-                            <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                          </span>
-                        </a>
-                      </li>
-                      <li>
                         <div class="dropdown-divider"></div>
                       </li>
                       <li>
@@ -165,7 +156,7 @@
 @else
 <div class="btn-group" role="group" aria-label="Basic example">
 <a href="{{ route('login') }}" class="btn btn-primary mr-2">Masuk</a>
-<a href="{{ route('registrasi') }}" class="btn btn-secondary">Dafatr</a>
+<a href="{{ route('registrasi') }}" class="btn btn-secondary">Daftar</a>
 </div>
 @endif
 
