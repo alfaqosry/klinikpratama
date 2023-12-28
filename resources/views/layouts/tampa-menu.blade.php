@@ -254,7 +254,6 @@
         </div>
     </div>
 
-lorem
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
