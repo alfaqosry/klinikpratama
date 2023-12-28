@@ -83,7 +83,7 @@
 
                     <div class="mt-4">
                         <button type="submit" class="btn btn-primary me-2">Pesan</button>
-                        <button type="reset" class="btn btn-outline-secondary">Batal</button>
+                        <a href="{{ route('home') }}" class="btn btn-outline-secondary">Batal</a>
                     </div>
                 </div>
                 </form>

@@ -76,6 +76,26 @@
                         <form id="formAuthentication" class="mb-3" action="{{ route('registrasi.store') }}"
                             method="POST">
                             {{ csrf_field() }}
+
+                            <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                <img src="{{ asset('sneat/assets/img/avatars/1.png') }}" alt="user-avatar"
+                                    class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                                <div class="button-wrapper">
+                                    <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                        <span class="d-none d-sm-block">Upload new photo</span>
+                                        <i class="bx bx-upload d-block d-sm-none"></i>
+                                        <input type="file" id="upload" class="account-file-input" name="foto"
+                                            hidden accept="image/png, image/jpeg" />
+                                    </label>
+                                    <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                                        <i class="bx bx-reset d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Reset</span>
+                                    </button>
+
+
+                                </div>
+                            </div>
+
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username"
