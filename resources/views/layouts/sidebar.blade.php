@@ -17,7 +17,7 @@
     <ul class="menu-inner py-1">
 
         <!-- Components -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Manajemen Klinik</span></li>
+        <li class="menu-header small text-uppercase"><span class="">Manajemen Klinik</span></li>
 
         <li class="menu-item  @yield('pesanan') ">
             <a href="{{ route('pesanan.index') }}" class="menu-link ">
