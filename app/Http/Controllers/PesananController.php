@@ -16,6 +16,9 @@ class PesananController extends Controller
     public function index()
     {
         $pelanggan = Pesanan::join('users', 'pesanans.pelanggan_id', 'users.id')->distinct()->get(['pelanggan_id', 'name', 'alamat']);
+
+
+
         return view('Pesanan.index', compact('pelanggan'));
     }
 

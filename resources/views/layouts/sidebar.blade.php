@@ -64,7 +64,14 @@
             <a href="{{ route('pesanan.index') }}" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">Pesanan </div>
-                <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                <?php
+                $tmp = \App\Pesanan::join('users', 'pesanans.pelanggan_id', 'users.id')
+                    ->distinct()
+                    ->count();
+                ?>
+
+                <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">
+                    {{ $tmp }}</span>
                 </span>
             </a>
 
