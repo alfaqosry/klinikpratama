@@ -65,7 +65,7 @@
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">Pesanan </div>
                 <?php
-                $tmp = \app\models\Pesanan::join('users', 'pesanans.pelanggan_id', 'users.id')
+                $tmp = App\Models\Pesanan::join('users', 'pesanans.pelanggan_id', 'users.id')
                     ->distinct()
                     ->count();
                 ?>
