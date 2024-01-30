@@ -1,6 +1,6 @@
 @extends('layouts.dashboard-layout')
-@section('user', 'active')
-@section('title', 'Daftar User')
+@section('pesanan', 'active')
+@section('title', 'Pesanan Homecare')
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Home /</span>@yield('title')</h4>
@@ -15,7 +15,7 @@
                 {{ session('gagal') }}
             </div>
         @endif
-        <a href="{{ route('user.create') }}" class="btn btn-primary">Tambah User</a>
+
         <!-- Basic Bootstrap Table -->
         <div class="card mt-4">
             <h5 class="card-header">@yield('title')</h5>
@@ -25,67 +25,26 @@
 
                         <tr>
                             <th>No</th>
-                            <th>Foto</th>
-                            <th>Username</th>
-                            <th>Nama</th>
-                            <th>Jenis Kelamin</th>
-                            <th>Tgl Lahir</th>
-                            <th>Email</th>
-                            <th>No Telepon</th>
+                            <th>Pelanggan</th>
                             <th>Alamat</th>
-                            <th>Bio</th>
-                            <th>Role</th>
-                            <th>aksi</th>
+                            {{-- <th>Pelanggan</th>
+                            <th>Status</th>
+                            <th>Keterangan</th>
+                            <th>Aksi</th> --}}
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
 
-                        @foreach ($user as $item)
+                        @foreach ($pelanggan as $item)
                             <tr>
-
-                                <td>
-
-                                    {{ $loop->iteration }}</td>
-                                
-
-                                <td><img src="{{ Storage::url($item->foto) }}" width="50px" alt=""></td>
-
-
-                                <td>
-                                    {{ $item->username }}
-
-                                </td>
-
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->jkelamin }}</td>
-                                <td>{{ $item->tgl_lahir }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->no_hp }}</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td><a
+                                        href="{{ route('pesanan.show', $item->pelanggan_id) }}"><strong>{{ $item->name }}</strong></a>
                                 <td>{{ $item->alamat }}</td>
-                                <td>{{ $item->bio }}</td>
-                                <td>{{ $item->role }}</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('user.edit', $item->id) }}"><i
-                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                data-bs-target="#deleteModal" data-bs-layanan="{{ $item->layanan }}"
-                                                data-bs-id="{{ $item->id }}"
-                                                data-bs-link="{{ route('layanan.delete', $item->id) }}"><i
-                                                    class="bx bx-trash me-1"></i>
-                                                Hapus
-                                            </button>
-                                        </div>
 
-
-
-                                    </div>
                                 </td>
+
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -94,7 +53,7 @@
         </div>
 
     </div>
-
+    {{--
     <!-- Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -135,5 +94,5 @@
             modalBodyInput.href = link
             console.log(modalTitle.h1);
         });
-    </script>
+    </script> --}}
 @endsection

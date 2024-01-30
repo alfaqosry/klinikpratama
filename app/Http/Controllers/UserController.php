@@ -34,16 +34,28 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'username' => 'required|unique:users',
-            'email' => 'required|unique:users',
-            'nama' => 'required',
-            'no_tlpn' => 'required',
+            
+            'name' => 'required',
+            'no_hp' => 'required',
             'password' => 'required',
+            'pekerjaan' => 'required',
+            'jkelamin' => 'required',
+            'tgl_lahir' => 'required',
             'alamat' => 'required',
             'role' => 'required'
         ]);
 
+        
+       
+
+
         $user = $request->all();
-        $user['foto'] = $request->file('foto')->store('foto', 'public');
+        if ($request->foto) {
+            $user['foto'] = $request->file('foto')->store('foto', 'public');
+        }
+
+        $user['password'] = Hash::make($request->input('password'));
+
         User::create($user);
         return redirect()->route('user')->with('sukses', 'User berhasil di tambahkan');
     }
@@ -66,9 +78,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $title = 'User';
         $user = User::find($id);
-        return view('user.edit', compact('user', 'title'));
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -80,11 +91,18 @@ class UserController extends Controller
         if ($changePassword == null) {
 
             $user = User::find($id);
-            $user->nama = $request->nama;
+            $user->name = $request->name;
             $user->username = $request->username;
-            $user->no_tlpn = $request->no_tlpn;
+            $user->no_hp = $request->no_hp;
             $user->role = $request->role;
             $user->email = $request->email;
+            $user->tgl_lahir = $request->tgl_lahir;
+            $user->jkelamin = $request->jkelamin;
+            $user->alamat = $request->alamat;
+            $user->role = $request->role;
+            $user->bio = $request->bio;
+
+
 
 
             $user->save();
@@ -93,11 +111,16 @@ class UserController extends Controller
         } else {
 
             $user = User::find($id);
-            $user->nama = $request->nama;
+            $user->name = $request->name;
             $user->username = $request->username;
-            $user->no_tlpn = $request->no_tlpn;
+            $user->no_hp = $request->no_tlpn;
             $user->role = $request->role;
             $user->email = $request->email;
+            $user->tgl_lahir = $request->tgl_lahir;
+            $user->jkelamin = $request->jkelamin;
+            $user->alamat = $request->alamat;
+            $user->role = $request->role;
+            $user->bio = $request->bio;
             $user->password = Hash::make($request->password);
 
             $user->save();
@@ -125,6 +148,7 @@ class UserController extends Controller
         $user->no_hp = $request->no_hp;
         $user->email = $request->email;
         $user->alamat = $request->alamat;
+        $user->bio = $request->bio;
         $user->tgl_lahir = $request->tgl_lahir;
         $user->pekerjaan = $request->pekerjaan;
         if ($request->foto) {

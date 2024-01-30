@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pesanan;
-use App\Models\User;
 
-class PesananController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,47 +14,22 @@ class PesananController extends Controller
      */
     public function index()
     {
+        $totaldiproses = Pesanan::where('pesanans.status', 'Diproses')
+        ->distinct()
+        ->count();
+        $totalterima = Pesanan::where('pesanans.status', 'Pesanan Diterima')
+        ->distinct()
+        ->count();
+        $totalselesai = Pesanan::where('pesanans.status', 'Pesanan Selesai')
+        ->distinct()
+        ->count();
+
+        $totalditolak = Pesanan::where('pesanans.status', 'Pesanan Ditolak')
+        ->distinct()
+        ->count();
+
         $pelanggan = Pesanan::join('users', 'pesanans.pelanggan_id', 'users.id')->distinct()->get(['pelanggan_id', 'name', 'alamat']);
-
-
-
-        return view('pesanan.index', compact('pelanggan'));
-    }
-
-    public function terimapesanan($id){
-        $pesanan = Pesanan::findorFail($id);
-        Pesanan::where('id',$id)->update(array(
-            'status'=>"Pesanan Diterima",
-));
-
-return redirect()->route('pesanan.show', $pesanan->pelanggan_id)->with('sukses', "Pesanan berhasil di terima");
-
-    }
-
-
-
-    public function selesaipesanan($id){
-        $pesanan = Pesanan::findorFail($id);
-        Pesanan::where('id',$id)->update(array(
-            'status'=>"Pesanan Selesai",
-));
-
-return redirect()->route('pesanan.show', $pesanan->pelanggan_id)->with('sukses', "Pesanan berhasil di Diselesaikan");
-
-    }
-
-
-
-    public function terimasemuapesanan($id){
-
-     
-
-        Pesanan::where('pelanggan_id',$id)->update(array(
-            'status'=>"Pesanan Diterima",
-));
-
-return redirect()->route('pesanan.show', $id)->with('sukses', 'Pesanan berhasil di terima');
-
+        return view('dashboard.index', compact('pelanggan','totaldiproses', 'totalterima', 'totalselesai', 'totalditolak'));
     }
 
     /**
@@ -87,10 +61,7 @@ return redirect()->route('pesanan.show', $id)->with('sukses', 'Pesanan berhasil 
      */
     public function show($id)
     {
-        $pelanggan = User::findOrfail($id);
-        $treatment = Pesanan::where('pelanggan_id', $id)->get();
-        $total = Pesanan::where('pelanggan_id', $id)->sum('harga_pesanan');
-        return view('pesanan.show', compact('treatment', 'pelanggan', 'total'));
+        //
     }
 
     /**

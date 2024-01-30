@@ -6,6 +6,7 @@ use App\Models\Home;
 use App\Models\Layanan;
 use App\Models\Pesanan;
 use App\Models\Treatment;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,11 +18,34 @@ class HomeController extends Controller
      */
     public function index()
     {
-
+        $dokter = User::where('role', 'Admin')->where('username', '!=', 'root')->get();
         $layanan = Layanan::all();
-        return view('home.index', compact('layanan'));
+        return view('home.index', compact('layanan','dokter'));
     }
 
+    public function pesanan(){
+        $diproses = Pesanan::where('pelanggan_id', auth()->user()->id)->where('status','Diproses')->get();
+        $diterima = Pesanan::where('pelanggan_id', auth()->user()->id)->where('status','Pesanan Diterima')->get();
+        $selesai = Pesanan::where('pelanggan_id', auth()->user()->id)->where('status','Pesanan Selesai')->get();
+
+       $totaldiproses = Pesanan::where('pelanggan_id', auth()->user()->id)
+                    ->where('pesanans.status', 'Diproses')
+                    ->distinct()
+                    ->count();
+       $totalterima = Pesanan::where('pelanggan_id', auth()->user()->id)
+                    ->where('pesanans.status', 'Pesanan Diterima')
+                    ->distinct()
+                    ->count();
+       $totalselesai = Pesanan::where('pelanggan_id', auth()->user()->id)
+                    ->where('pesanans.status', 'Pesanan Selesai')
+                    ->distinct()
+                    ->count();
+       $totalditolak = Pesanan::where('pesanans.status', 'Pesanan Ditolak')
+                    ->distinct()
+                    ->count();
+
+        return view('home.pesanan', compact('diproses', 'diterima', 'selesai', 'totaldiproses', 'totalterima', 'totalselesai', 'totalditolak'));
+    }
 
 
     /**
@@ -30,6 +54,11 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+
+     public function kontak(){
+
+        return view('home.kontak');
+     }
 
     public function treatment($id)
     {
@@ -57,6 +86,7 @@ class HomeController extends Controller
         $request->validate([
             'treatment_id' => 'required',
             'harga_pesanan' => 'required',
+            'boking' => 'required',
 
 
         ]);
@@ -67,6 +97,7 @@ class HomeController extends Controller
                 'treatment_id' => $item,
                 'pelanggan_id' => auth()->user()->id,
                 'harga_pesanan' => $harga->harga,
+                'boking' => $request->boking,
                 'status' => "Diproses"
 
 
@@ -74,7 +105,15 @@ class HomeController extends Controller
         }
 
 
-        return redirect()->route('home')->with('sukses', 'Treatment berhasil di pesan');
+        return redirect()->route('home.pesanan')->with('sukses', 'Treatment berhasil di pesan');
+    }
+
+
+    public function profiledokter($id){
+
+
+        $dokter = User::findorfail($id);
+        return view('user.profiledokter' ,compact('dokter'));
     }
 
     /**
@@ -117,8 +156,15 @@ class HomeController extends Controller
      * @param  \App\Models\Home  $home
      * @return \Illuminate\Http\Response
      */
-    public function destroy($home)
+    public function destroy($id)
     {
-        //
+        try {
+            $pesanan = Pesanan::findorfail($id);
+            $pesanan->delete();
+
+            return redirect()->route('home.pesanan')->with('sukses', 'Pesanan berhasil dihapus');
+        } catch (\Illuminate\Database\QueryException $ex) {
+            return redirect()->back()->with('sukses', 'Maaf, Masih ada data yang terpaut dengan pesanan ini.');
+        }
     }
 }

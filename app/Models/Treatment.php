@@ -12,8 +12,8 @@ class Treatment extends Model
         'treatment',
         'layanan_id',
         'keterangan',
-        'harga'
-
+        'harga',
+        
     ];
 
 

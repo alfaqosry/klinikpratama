@@ -13,7 +13,9 @@ class Pesanan extends Model
         'treatment_id',
         'pelanggan_id',
         'status',
-        'harga_pesanan'
+        'harga_pesanan',
+        'boking'
+
 
 
     ];

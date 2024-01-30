@@ -21,11 +21,12 @@
                         <div class="card-body">
                             <h5 class="card-title text-primary">Klinik dr.Dini Zulanda</h5>
                             <p class="mb-4">
-                                Kami melayani pengobatan umum gratis bagi dhuafa & lansia dan untuk warga yang kurang mampu
-                                yang tidak mendapatkan hal layanan kesehatan.
+                            Praktek dr. Dini Zulanda merupakan pusat kesehatan yang melayani pengobatan umum dan perawatan kecantikan dan kesehatan khusus wanita dan keluarga. Untuk memaksimalkan pelayanan kami didukung oleh tenaga Dokter, perawat,beautician dan terapis profesional.
                             </p>
+                            <p>Alamat : Jl. Melur No.37 Padang bulan, Kota Pekanbaru</p>
+                            <p>Jadwal Operasional : 09:00 - 17:00 </p>
 
-                            <a href="javascript:;" class="btn btn-sm btn-outline-primary">Lihat Kontak</a>
+                            <a href="{{route('home.kontak')}}" class="btn btn-sm btn-outline-primary">Lihat Kontak</a>
                         </div>
                     </div>
                     <div class="col-sm-5 text-center text-sm-left">
@@ -38,6 +39,34 @@
                 </div>
             </div>
         </div>
+
+        <div class="row mb-5">
+
+        <h3>Tenaga Ahli</h3>
+
+
+        @foreach($dokter as $d)
+                <div class="col-md col-6">
+                  <div class="card mb-3">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img class="card-img card-img-left" src="{{ Storage::url($d->foto) }}" alt="Card image" />
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                        <a href="{{route('profiledokter',$d->id)}}"> <h5 class="card-title">{{$d->name}}</h5></a> 
+                          <p class="card-text">
+                           {{$d->pekerjaan}}
+                          </p>
+                         
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                @endforeach
+
+              
 
 
 

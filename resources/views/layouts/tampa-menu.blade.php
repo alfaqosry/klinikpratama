@@ -134,12 +134,33 @@
                           <span class="align-middle">My Profile</span>
                         </a>
                       </li>
+
+                    @if(auth()->user()->role == "Admin")
                       <li>
                         <a class="dropdown-item" href="{{ route('pesanan.index') }}">
                           <i class=" bx bx-collection me-2"></i>
                           <span class="align-middle">Dashboard</span>
                         </a>
                       </li>
+
+                      @else
+
+                      <li>
+                        <a class="dropdown-item" href="{{ route('home.pesanan') }}">
+                          <i class=" bx bx-collection me-2"></i>
+                          <span class="align-middle">Pesanan</span>
+                          <?php
+                $tmp = App\Models\Pesanan::join('users', 'pesanans.pelanggan_id', 'users.id')
+                    ->where('pesanans.status', 'Diproses')
+                    ->where('users.id', auth()->user()->id)
+                    ->distinct()
+                    ->count();
+                ?>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">{{$tmp}}</span>
+                        </a>
+                      </li>
+                      @endif
+
                       <li>
                         <div class="dropdown-divider"></div>
                       </li>
@@ -190,26 +211,7 @@
                   <script>
                       document.write(new Date().getFullYear());
                   </script>
-                  , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
-                </div>
-                <div>
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Support</a
-                  >
+                
                 </div>
               </div>
             </footer>

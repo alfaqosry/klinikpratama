@@ -50,7 +50,7 @@
 
 
                                 <td>
-                                    Rp.{{ $item->harga }}
+                                   {{"Rp " . number_format($item->harga, 2, ",", ".")}} 
 
                                 </td>
 

@@ -67,7 +67,7 @@
                             <label class="btn btn-sm btn-outline-primary " style="margin-top: 6px !important"
                                 for="{{ $item->id }}">
                                 {{ $item->treatment }}
-                                <p>Rp.{{ $item->harga }}</p>
+                                <p>{{"Rp " . number_format($item->harga, 2, ",", ".")}}</p>
                             </label>
                             <input type="hidden" name="harga_pesanan" value="{{ $item->harga }}">
                         @endforeach
@@ -75,7 +75,29 @@
 
                     </div>
 
+                    <div class="mb-3 row mt-4">
+                        <label for="boking" class="col-md-2 col-form-label">Tanggal Boking</label>
+                        <div class="col-md-6">
+                          <input
+                            class="form-control"
+                            type="datetime-local"
+                            name = "boking"
+                            id="boking"
+                          />
+
+                          @error('boking')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+
+                          <p class="text-danger mt-2">Jadwal Boking 09:00 - 17:00 melewati jam tersebut pesanan di tolak</p>
+                        </div>
+                      </div>
+
             </div>
+
+            
+           
+
             <div class="card-body">
                 <h3 class="runningTotal text-primary"></h3>
 
@@ -121,5 +143,11 @@
 
             })
         });
+
+
+        const today=(new Date()).toLocaleString("EN-CA").slice(0,10); // get local current date
+document.querySelectorAll('input[type="datetime-local"]').forEach(el=>{
+ el.min=today+"T09:00"; el.max="T17:00";
+})
     </script>
 @endsection

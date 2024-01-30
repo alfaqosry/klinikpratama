@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +31,7 @@ class AuthController extends Controller
             $checkRole = Auth::user()->role;
             // dd($checkRole);
             if ($checkRole == 'Admin') {
-                return redirect()->route('layanan.index');
+                return redirect()->route('dashboard');
             } elseif ($checkRole == 'Pasien') {
                 return redirect()->route('home');
             }
@@ -89,13 +90,17 @@ class AuthController extends Controller
             'email' => $request->email,
             'alamat' => $request->alamat,
             'pekerjaan' => $request->pekerjaan,
-            'jkelamin' => $request->pekerjaan,
+            'jkelamin' => $request->jkelamin,
             'tgl_lahir' => $request->tgl_lahir,
             'password' => Hash::make($request->input('password')),
             'role' => "Pasien",
             'no_hp' => $request->no_hp
         ]);
 
+        // event(new Registered($user));
+        // auth()->login($user);
+
+        // return redirect()->route('verification.notice')->with('sukses','Verifikasi email');
         return redirect()->route('login')->with('sukses', 'Registrasi Anda Berhasi!, Silahkan Login...');
     }
 

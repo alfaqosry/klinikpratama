@@ -19,12 +19,21 @@
         <!-- Components -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Manajemen Klinik</span></li>
 
+        <li class="menu-item @yield('dashboard')">
+            <a href="{{ route('dashboard') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Dashboard</div>
+            </a>
+        </li>
+
+
         <li class="menu-item  @yield('pesanan') ">
             <a href="{{ route('pesanan.index') }}" class="menu-link ">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">Pesanan </div>
                 <?php
                 $tmp = App\Models\Pesanan::join('users', 'pesanans.pelanggan_id', 'users.id')
+                    ->where('pesanans.status', 'Diproses')
                     ->distinct()
                     ->count();
                 ?>
